@@ -40,6 +40,9 @@ $CC "$ROOT_DIR/03_bouncing_particles.c" -o "$BIN_DIR/03_bouncing_particles" $CFL
 echo "Building Example 04: 04_threaded_triangle..."
 $CC "$ROOT_DIR/04_threaded_triangle.c" -o "$BIN_DIR/04_threaded_triangle" $CFLAGS $LDFLAGS $RPATH
 
+echo "Building Example 05: 05_compute_threads..."
+$CC "$ROOT_DIR/05_compute_threads.c" -o "$BIN_DIR/05_compute_threads" $CFLAGS $LDFLAGS $RPATH
+
 cp "$BIN_DIR/03_bouncing_particles" "$ROOT_DIR/bin/native_app"
 
 # Copy dynamic libraries into bin/native so release bundles are self-contained
@@ -56,3 +59,4 @@ echo "  - $BIN_DIR/01_triangle"
 echo "  - $BIN_DIR/02_triangle_instancing"
 echo "  - $BIN_DIR/03_bouncing_particles"
 echo "  - $BIN_DIR/04_threaded_triangle"
+echo "  - $BIN_DIR/05_compute_threads"

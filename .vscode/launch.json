@@ -73,6 +73,22 @@
             "preLaunchTask": "Build All Native Examples"
         },
         {
+            "name": "Debug Native: Example 05 (Compute + Threads)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/native/05_compute_threads",
+            "windows": {
+                "program": "${workspaceFolder}/bin/native/05_compute_threads.exe"
+            },
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "Build All Native Examples"
+        },
+        {
             "name": "Launch Chrome with WebAssembly Suite",
             "type": "chrome",
             "request": "launch",

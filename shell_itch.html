@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compute + Threads</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #111;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      canvas {
+        background: #000;
+        display: block;
+        width: 100vw;
+        height: 100vh;
+      }
+      #status {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+        color: #aaa;
+      }
+      .error {
+        background: #200;
+        border: 1px solid #800;
+        border-radius: 4px;
+        padding: 16px;
+        color: #faa;
+        font-family: system-ui, sans-serif;
+        max-width: 80vw;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+    <div id="status">Initializing WebGPU...</div>
+
+    <script>
+      if (!navigator.gpu) {
+        var s = document.getElementById('status');
+        s.className = 'error';
+        s.innerHTML = '<strong>WebGPU Not Supported</strong><br>Firefox: set <code>dom.webgpu.enabled = true</code> in <code>about:config</code>.<br>Chrome/Edge: Enabled by default in version 113+.';
+      }
+
+      var Module = {
+        canvas: document.getElementById('canvas'),
+        print: console.log,
+        printErr: console.error,
+        setStatus: function(text) {
+          if (text && navigator.gpu) document.getElementById('status').innerText = text;
+        }
+      };
+    </script>
+    {{{ SCRIPT }}}
+  </body>
+</html>

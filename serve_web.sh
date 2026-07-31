@@ -22,6 +22,7 @@ echo "   - Example 01:        http://localhost:$PORT/01_triangle.html"
 echo "   - Example 02:        http://localhost:$PORT/02_triangle_instancing.html"
 echo "   - Example 03:        http://localhost:$PORT/03_bouncing_particles.html"
 echo "   - Example 04:        http://localhost:$PORT/04_threaded_triangle.html"
+echo "   - Example 05:        http://localhost:$PORT/05_compute_threads.html"
 echo "=========================================================="
 echo " [Note] COOP/COEP Headers enabled for WebAssembly pthreads."
 

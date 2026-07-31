@@ -30,6 +30,9 @@ if errorlevel 1 exit /b 1
 cl.exe "%ROOT_DIR%04_threaded_triangle.c" /Fe:"%BIN_DIR%\04_threaded_triangle.exe" %CFLAGS% /link %LDFLAGS%
 if errorlevel 1 exit /b 1
 
+cl.exe "%ROOT_DIR%05_compute_threads.c" /Fe:"%BIN_DIR%\05_compute_threads.exe" %CFLAGS% /link %LDFLAGS%
+if errorlevel 1 exit /b 1
+
 if not exist "%ROOT_DIR%bin" mkdir "%ROOT_DIR%bin"
 copy /Y "%BIN_DIR%\03_bouncing_particles.exe" "%ROOT_DIR%bin\native_app.exe"
 

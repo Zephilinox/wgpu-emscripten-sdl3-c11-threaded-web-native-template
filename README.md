@@ -86,6 +86,7 @@ Compiles all 4 C examples into `./bin/native/`:
 ./bin/native/02_triangle_instancing
 ./bin/native/03_bouncing_particles
 ./bin/native/04_threaded_triangle
+./bin/native/05_compute_threads
 ```
 
 ### 3. Build & Serve WebAssembly Web App
