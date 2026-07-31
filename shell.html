@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGPU + SDL3 Examples</title>
+    <script src="coi-serviceworker.js"></script>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background: #111;
+        color: #eee;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      nav a {
+        background: #222;
+        color: #4af;
+        border: 1px solid #333;
+        padding: 6px 14px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      nav a:hover {
+        background: #333;
+        color: #fff;
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #1a1a1a;
+        border: 1px solid #333;
+        padding: 8px 14px;
+        border-radius: 4px;
+        font-size: 13px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .controls input {
+        cursor: pointer;
+        vertical-align: middle;
+      }
+      canvas {
+        background: #000;
+        border: 1px solid #333;
+        border-radius: 4px;
+        display: block;
+        width: 100%;
+        max-width: 1280px;
+        aspect-ratio: 16 / 9;
+      }
+      #status {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #aaa;
+      }
+      .error {
+        background: #200;
+        border: 1px solid #800;
+        border-radius: 4px;
+        padding: 16px;
+        color: #faa;
+        max-width: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="01_triangle.html">Example 1: Triangle</a>
+      <a href="02_triangle_instancing.html">Example 2: Instancing</a>
+      <a href="03_bouncing_particles.html">Example 3: Particles</a>
+      <a href="04_threaded_triangle.html">Example 4: Threaded</a>
+    </nav>
+
+    <div class="controls" id="controls" style="display: none;">
+      <label>Particles: <input type="range" id="slider-count" min="1000" max="250000" step="1000" value="10000"></label>
+      <span id="val-count" style="color: #4af; font-weight: 600; min-width: 75px;">10,000</span>
+
+      <label style="margin-left: 8px;">Size: <input type="range" id="slider-size" min="0.1" max="100.0" step="0.1" value="1.0"></label>
+      <span id="val-size" style="color: #4af; font-weight: 600; min-width: 45px;">1.0x</span>
+
+      <label style="margin-left: 8px;">Speed: <input type="range" id="slider-speed" min="0.1" max="10.0" step="0.1" value="1.0"></label>
+      <span id="val-speed" style="color: #4af; font-weight: 600; min-width: 35px;">1.0x</span>
+    </div>
+
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+    <div id="status">Initializing WebGPU...</div>
+
+    <script>
+      if (location.pathname.includes("03_bouncing_particles")) {
+        var ctrl = document.getElementById('controls');
+        ctrl.style.display = 'flex';
+
+        // Prevent SDL canvas event capture while interacting with UI controls
+        ['mousedown', 'pointerdown', 'mouseup', 'click',
+         'keydown', 'keyup', 'touchstart', 'touchend', 'touchmove'].forEach(function(evt) {
+          ctrl.addEventListener(evt, function(e) { e.stopPropagation(); }, { passive: false });
+        });
+
+        // Sliders: oninput updates the label and calls into Wasm.
+        // The call is a direct Wasm function invocation (no heap allocation, no buffer copy).
+        // For int params, pass Math.round() to avoid float-truncation surprises.
+        // For float params, the JS number is coerced to f32 by Wasm directly.
+        function setupSlider(id, valId, formatFn, exportName, coerceFn) {
+          var el = document.getElementById(id);
+          var valEl = document.getElementById(valId);
+          el.oninput = function() {
+            var val = coerceFn(parseFloat(el.value));
+            valEl.innerText = formatFn(val);
+            if (Module[exportName]) Module[exportName](val);
+          };
+        }
+
+        setupSlider('slider-count', 'val-count',
+          function(n) { return n.toLocaleString(); },
+          '_set_active_particle_count',
+          function(n) { return Math.round(n); });
+
+        setupSlider('slider-size', 'val-size',
+          function(s) { return s.toFixed(1) + 'x'; },
+          '_set_particle_size_scale',
+          function(n) { return n; });
+
+        setupSlider('slider-speed', 'val-speed',
+          function(v) { return v.toFixed(1) + 'x'; },
+          '_set_particle_speed_scale',
+          function(n) { return n; });
+      }
+
+      if (!navigator.gpu) {
+        document.getElementById('status').className = 'error';
+        document.getElementById('status').innerHTML = '<strong>WebGPU Not Supported</strong><br>Firefox: set <code>dom.webgpu.enabled = true</code> in <code>about:config</code>.<br>Chrome/Edge: Enabled by default in version 113+.';
+      }
+
+      var Module = {
+        canvas: document.getElementById('canvas'),
+        print: console.log,
+        printErr: console.error,
+        setStatus: function(text) {
+          if (text && navigator.gpu) document.getElementById('status').innerText = text;
+        }
+      };
+    </script>
+    {{{ SCRIPT }}}
+  </body>
+</html>

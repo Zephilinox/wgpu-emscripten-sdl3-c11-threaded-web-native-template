@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Native (Linux/macOS/Windows)",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/deps/wgpu-native/include",
+                "${workspaceFolder}/deps/sdl3/include"
+            ],
+            "defines": [
+                "SDL_ENABLE_SYSAPI"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        },
+        {
+            "name": "Web (Emscripten)",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/deps/sdl3/include"
+            ],
+            "defines": [
+                "__EMSCRIPTEN__"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

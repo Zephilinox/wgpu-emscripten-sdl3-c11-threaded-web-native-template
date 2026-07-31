@@ -1,0 +1,48 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build All Native Examples",
+            "command": "${workspaceFolder}/build_native.sh",
+            "windows": {
+                "command": "${workspaceFolder}\\build_native.bat"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "type": "shell",
+            "label": "Build All WebAssembly Examples",
+            "command": "${workspaceFolder}/build_web.sh",
+            "windows": {
+                "command": "${workspaceFolder}\\build_web.bat"
+            },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "type": "shell",
+            "label": "Fetch Third-Party Dependencies",
+            "command": "${workspaceFolder}/fetch_deps.sh",
+            "windows": {
+                "command": "${workspaceFolder}\\fetch_deps.bat"
+            },
+            "group": "none",
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Serve Web Exports",
+            "command": "${workspaceFolder}/serve_web.sh",
+            "windows": {
+                "command": "${workspaceFolder}\\serve_web.bat"
+            },
+            "group": "none",
+            "problemMatcher": []
+        }
+    ]
+}

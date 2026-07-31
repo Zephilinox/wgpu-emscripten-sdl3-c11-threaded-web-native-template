@@ -1,0 +1,84 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Native: Example 01 (Triangle)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/native/01_triangle",
+            "windows": {
+                "program": "${workspaceFolder}/bin/native/01_triangle.exe"
+            },
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "Build All Native Examples",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Debug Native: Example 02 (Instancing)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/native/02_triangle_instancing",
+            "windows": {
+                "program": "${workspaceFolder}/bin/native/02_triangle_instancing.exe"
+            },
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "Build All Native Examples"
+        },
+        {
+            "name": "Debug Native: Example 03 (Particles)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/native/03_bouncing_particles",
+            "windows": {
+                "program": "${workspaceFolder}/bin/native/03_bouncing_particles.exe"
+            },
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "Build All Native Examples"
+        },
+        {
+            "name": "Debug Native: Example 04 (Threaded)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/native/04_threaded_triangle",
+            "windows": {
+                "program": "${workspaceFolder}/bin/native/04_threaded_triangle.exe"
+            },
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "Build All Native Examples"
+        },
+        {
+            "name": "Launch Chrome with WebAssembly Suite",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8000/",
+            "webRoot": "${workspaceFolder}/bin/web",
+            "preLaunchTask": "Serve Web Exports"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+# Dependencies folder (fetched automatically via fetch_deps.sh)
+deps/
+
+# Build / Output artifacts
+build/
+bin/
+out/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.wasm
+*.js
+# Track custom shell HTML template
+!shell.html
+*.log
+
+# VS Code directory settings / state
+.vscode/*.log
+.vscode/.react/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Emscripten / Cache outputs
+*.emscripten*
