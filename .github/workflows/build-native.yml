@@ -1,0 +1,92 @@
+name: Build Native Binaries (Multi-OS)
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: "false"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build (${{ matrix.target.name }})
+    runs-on: ${{ matrix.target.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - name: Linux x86_64
+            os: ubuntu-latest
+            artifact_name: wgpu-sdl3-examples-linux-x86_64
+            archive: wgpu-sdl3-examples-linux-x86_64.tar.gz
+
+          - name: macOS ARM64
+            os: macos-latest
+            artifact_name: wgpu-sdl3-examples-macos-arm64
+            archive: wgpu-sdl3-examples-macos-arm64.tar.gz
+
+          - name: Windows x86_64
+            os: windows-latest
+            artifact_name: wgpu-sdl3-examples-windows-x86_64
+            archive: wgpu-sdl3-examples-windows-x86_64.zip
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwayland-dev libxkbcommon-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxext-dev libxinerama-dev libgl1-mesa-dev cmake gcc g++
+
+      - name: Setup MSVC developer environment
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build Native Examples (Linux / macOS)
+        if: runner.os != 'Windows'
+        run: |
+          chmod +x fetch_deps.sh build_native.sh
+          ./fetch_deps.sh
+          ./build_native.sh
+
+      - name: Build Native Examples (Windows)
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: |
+          call fetch_deps.bat
+          call build_native.bat
+
+      - name: Package Release Archives (Linux / macOS)
+        if: runner.os != 'Windows'
+        run: |
+          tar -czvf ${{ matrix.target.archive }} -C bin/native .
+
+      - name: Package Release Archives (Windows)
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          Compress-Archive -Path bin\native\* -DestinationPath ${{ matrix.target.archive }}
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target.artifact_name }}
+          path: ${{ matrix.target.archive }}
+
+      - name: Upload to GitHub Release
+        if: github.event_name == 'release' && github.event.action == 'published'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.target.archive }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
