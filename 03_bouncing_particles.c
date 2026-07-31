@@ -4,6 +4,10 @@
 #ifdef SDL_PLATFORM_MACOS
 #include <SDL3/SDL_metal.h>
 #endif
+#ifdef SDL_PLATFORM_WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>

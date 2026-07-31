@@ -16,8 +16,18 @@ echo === Fetching Dependencies for Windows ===
 if not exist "%WGPU_DIR%" (
     echo Fetching wgpu-native %WGPU_VERSION%...
     mkdir "%WGPU_DIR%"
-    powershell -Command "Invoke-WebRequest -Uri 'https://github.com/gfx-rs/wgpu-native/releases/download/%WGPU_VERSION%/wgpu-windows-x86_64-release.zip' -OutFile '%DEPS_DIR%\wgpu.zip'"
+    powershell -Command "Invoke-WebRequest -Uri 'https://github.com/gfx-rs/wgpu-native/releases/download/%WGPU_VERSION%/wgpu-windows-x86_64-msvc-release.zip' -OutFile '%DEPS_DIR%\wgpu.zip'"
+    if errorlevel 1 (
+        echo Failed to download wgpu-native. Aborting.
+        rmdir /s /q "%WGPU_DIR%"
+        exit /b 1
+    )
     powershell -Command "Expand-Archive -Path '%DEPS_DIR%\wgpu.zip' -DestinationPath '%WGPU_DIR%'"
+    if errorlevel 1 (
+        echo Failed to extract wgpu-native. Aborting.
+        rmdir /s /q "%WGPU_DIR%"
+        exit /b 1
+    )
     del "%DEPS_DIR%\wgpu.zip"
     echo wgpu-native fetched successfully!
 ) else (

@@ -15,8 +15,8 @@ if not exist "%DEPS_DIR%\wgpu-native" (
 
 echo === Building All Native Examples (Windows) ===
 
-set CFLAGS=/I"%DEPS_DIR%\wgpu-native\include" /I"%DEPS_DIR%\sdl3\include" /O2 /W3
-set LDFLAGS=/LIBPATH:"%DEPS_DIR%\wgpu-native\lib" /LIBPATH:"%DEPS_DIR%\sdl3\build" /LIBPATH:"%DEPS_DIR%\sdl3\build\Release" wgpu_native.lib SDL3.lib user32.lib gdi32.lib shell32.lib
+set CFLAGS=/I"%DEPS_DIR%\wgpu-native\include" /I"%DEPS_DIR%\sdl3\include" /std:c11 /O2 /W3
+set LDFLAGS=/LIBPATH:"%DEPS_DIR%\wgpu-native\lib" /LIBPATH:"%DEPS_DIR%\sdl3\build" /LIBPATH:"%DEPS_DIR%\sdl3\build\Release" wgpu_native.dll.lib SDL3.lib user32.lib gdi32.lib shell32.lib
 
 cl.exe "%ROOT_DIR%01_triangle.c" /Fe:"%BIN_DIR%\01_triangle.exe" %CFLAGS% /link %LDFLAGS%
 if errorlevel 1 exit /b 1

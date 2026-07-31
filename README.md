@@ -38,6 +38,43 @@ Downloads pinned `wgpu-native` binaries (`v29.0.1.1`) and clones/builds stable `
 # Windows: fetch_deps.bat
 ```
 
+> **Windows note:** `fetch_deps.bat` downloads the **MSVC** build of `wgpu-native` (`wgpu-windows-x86_64-msvc-release.zip`) since `build_native.bat` compiles with `cl.exe`. If you build with a different toolchain (e.g. MinGW / `gcc`), edit `fetch_deps.bat` to fetch `wgpu-windows-x86_64-gnu-release.zip` instead. The MSVC binaries will not link against GNU binaries.
+
+#### Providing Your Own Dependencies (Skip the Fetch)
+
+Both `fetch_deps.sh` and `fetch_deps.bat` skip any dependency whose folder already exists under `deps/`. You can drop in your own pre-built `wgpu-native` and/or `SDL3` to bypass downloading (and the SDL3 cmake build) entirely. Either dependency can be supplied independently; only the one you provide needs to match the layout below.
+
+The build scripts reference these exact paths, so populate them accordingly:
+
+```
+deps/
+├── wgpu-native/
+│   ├── include/
+│   │   └── webgpu/
+│   │       ├── webgpu.h
+│   │       └── wgpu.h
+│   └── lib/
+│       ├── wgpu_native.dll.lib       # Windows (MSVC import lib; links against wgpu_native.dll)
+│       ├── wgpu_native.dll            # Windows
+│       ├── libwgpu_native.so*         # Linux
+│       └── libwgpu_native.dylib       # macOS
+└── sdl3/
+    ├── include/                       # SDL3 headers (e.g. include/SDL3/SDL.h)
+    └── build/
+        ├── SDL3.lib / SDL3.dll        # Windows (build/ or build/Release/)
+        ├── libSDL3.so*                # Linux
+        └── libSDL3.dylib              # macOS
+```
+
+Notes:
+- **wgpu-native**: any compatible `wgpu.h` / `webgpu.h` (matching the `webgpu/webgpu.h` include used by these examples) works. Headers must sit under `deps/wgpu-native/include/webgpu/`.
+- **SDL3**: if you already have SDL3 installed system-wide, the simplest route is to create the expected `deps/sdl3/` tree with symlinks pointing at your installed prefix.
+
+Runtime library resolution (the build scripts already copy the fetched libraries next to the executables in `bin/native/`):
+- **Windows**: place `wgpu_native.dll` and `SDL3.dll` in `bin/native/` (or add their folder to `PATH`).
+- **Linux**: place `libwgpu_native.so*` and `libSDL3.so*` in `bin/native/`. The binaries are built with an `rpath` of `$ORIGIN`, so this is enough. Otherwise set `LD_LIBRARY_PATH`.
+- **macOS**: place `libwgpu_native.dylib` and `libSDL3.dylib` in `bin/native/`. The binaries are built with an `rpath` of `@executable_path`, so this is enough. Otherwise set `DYLD_LIBRARY_PATH`.
+
 ### 2. Build & Run Native Executables
 Compiles all 4 C examples into `./bin/native/`:
 ```bash
