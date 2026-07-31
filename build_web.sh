@@ -64,6 +64,7 @@ emcc "$ROOT_DIR/04_threaded_triangle.c" -o "$BIN_DIR/04_threaded_triangle.html" 
 cp "$BIN_DIR/01_triangle.html" "$BIN_DIR/index.html"
 cp "$BIN_DIR/01_triangle.js" "$BIN_DIR/index.js"
 cp "$BIN_DIR/01_triangle.wasm" "$BIN_DIR/index.wasm"
+cp "$ROOT_DIR/coi-serviceworker.js" "$BIN_DIR/coi-serviceworker.js"
 
 echo "Web Builds Succeeded:"
 echo "  - Root Default Page: http://localhost:8000/ (Example 01)"

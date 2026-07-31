@@ -60,5 +60,6 @@ echo Building Example 04: 04_threaded_triangle.html...
 emcc "%ROOT_DIR%\04_threaded_triangle.c" -o "%BIN_DIR%\04_threaded_triangle.html" %EMCC_FLAGS% -pthread -s PTHREAD_POOL_SIZE=2
 
 copy /Y "%BIN_DIR%\01_triangle.html" "%BIN_DIR%\index.html"
+copy /Y "%ROOT_DIR%\coi-serviceworker.js" "%BIN_DIR%\coi-serviceworker.js"
 
 echo Web Builds Succeeded in %BIN_DIR%

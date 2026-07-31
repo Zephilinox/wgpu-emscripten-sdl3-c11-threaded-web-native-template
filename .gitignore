@@ -12,6 +12,7 @@ out/
 *.dll
 *.wasm
 *.js
+!coi-serviceworker.js
 # Track custom shell HTML template
 !shell.html
 *.log
