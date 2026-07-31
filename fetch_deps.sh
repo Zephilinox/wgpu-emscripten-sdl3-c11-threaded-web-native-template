@@ -31,6 +31,9 @@ if [ ! -d "$WGPU_DIR" ]; then
                 WGPU_URL="https://github.com/gfx-rs/wgpu-native/releases/download/${WGPU_VERSION}/wgpu-macos-x86_64-release.zip"
             fi
             ;;
+        MINGW*|MSYS*|CYGWIN*)
+            WGPU_URL="https://github.com/gfx-rs/wgpu-native/releases/download/${WGPU_VERSION}/wgpu-windows-x86_64-gnu-release.zip"
+            ;;
         *)
             echo "Unsupported OS for automatic wgpu-native bash fetch: $OS"
             exit 1
