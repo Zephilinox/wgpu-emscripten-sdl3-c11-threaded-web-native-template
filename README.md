@@ -1,11 +1,11 @@
 
-# Vibe Coded for [Cakez](https://www.twitch.tv/cakez77) [![GitHub license](https://img.shields.io/github/license/Zephilinox/wgpu-emscriptem-sdl3-c11-threaded-web-native-template.svg)](https://github.com/Zephilinox/wgpu-emscriptem-sdl3-c11-threaded-web-native-template/blob/main/LICENSE) [![Website ricardoheath.co.uk/wgpu-emscriptem-sdl3-c11-threaded-web-native-template/](https://img.shields.io/website-up-down-green-red/https/ricardoheath.co.uk/wgpu-emscriptem-sdl3-c11-threaded-web-native-template.svg)](https://ricardoheath.co.uk/wgpu-emscriptem-sdl3-c11-threaded-web-native-template)
+# Vibe Coded for [Cakez](https://www.twitch.tv/cakez77) [![GitHub license](https://img.shields.io/github/license/Zephilinox/wgpu-emscripten-sdl3-c11-threaded-web-native-template.svg)](https://github.com/Zephilinox/wgpu-emscripten-sdl3-c11-threaded-web-native-template/blob/main/LICENSE) [![Website ricardoheath.co.uk/wgpu-emscripten-sdl3-c11-threaded-web-native-template/](https://img.shields.io/website-up-down-green-red/https/ricardoheath.co.uk/wgpu-emscripten-sdl3-c11-threaded-web-native-template.svg)](https://ricardoheath.co.uk/wgpu-emscripten-sdl3-c11-threaded-web-native-template)
 
-[Try in the browser](https://ricardoheath.co.uk/wgpu-emscriptem-sdl3-c11-threaded-web-native-template)
+[Try in the browser](https://ricardoheath.co.uk/wgpu-emscripten-sdl3-c11-threaded-web-native-template)
 
 [Try Compute + Threads on itch.io](https://zephilinox.itch.io/wgpu-sdl3-compute-shader-and-threads)
 
-[Download examples](https://github.com/Zephilinox/wgpu-emscriptem-sdl3-c11-threaded-web-native-template/releases)
+[Download examples](https://github.com/Zephilinox/wgpu-emscripten-sdl3-c11-threaded-web-native-template/releases)
 
 A cross-platform starter project demonstrating **WebGPU** and **SDL3** in pure C, compiling to both **Native Desktop** (Linux, macOS, Windows) and **WebAssembly** (WebGPU in browser).
 
